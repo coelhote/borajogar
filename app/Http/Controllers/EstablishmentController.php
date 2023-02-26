@@ -3,11 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Establishment;
+use App\Services\EstablishmentService;
 use Exception;
 use Illuminate\Http\Request;
 
 class EstablishmentController extends Controller
 {
+
+    private $establishment;
+
+    public function __construct(EstablishmentService $establishment)
+    {
+        $this->establishment = $establishment;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +35,7 @@ class EstablishmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->establishment->update($request->input());
     }
 
     /**
@@ -49,7 +58,7 @@ class EstablishmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return $this->establishment->update($request->all(), $id);
     }
 
     /**

@@ -13,7 +13,8 @@ class Establishment extends Model
         'company_name',
         'trading_name',
         'document',
-        'plan'
+        'plan',
+        'status'
     ];
 
     protected $hidden = [
