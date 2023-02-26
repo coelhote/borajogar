@@ -3,11 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Plan;
+use App\Services\PlanService;
 use Exception;
 use Illuminate\Http\Request;
 
 class PlanController extends Controller
 {
+
+    private $plan;
+
+    public function __construct(PlanService $plan)
+    {
+        $this->plan = $plan;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +36,7 @@ class PlanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->plan->update($request->all());
     }
 
     /**
@@ -50,7 +60,7 @@ class PlanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return $this->plan->update($request->all(), $id);
     }
 
     /**

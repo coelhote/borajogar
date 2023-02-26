@@ -35,7 +35,7 @@ class AddressService
 
             
         } catch (Exception $e) {
-            return response()->json(['message' => 'Establishment update error. '. $e->getMessage()], 422);
+            return response()->json(['message' => 'Address update error. '. $e->getMessage()], 422);
         }
     }
 }

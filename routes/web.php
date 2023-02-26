@@ -31,3 +31,5 @@ Route::get('/user', [UserController::class, 'index']);
 
 Route::resource('establishment', EstablishmentController::class);
 Route::resource('address', AddressController::class);
+Route::resource('plan', AddressController::class);
+
