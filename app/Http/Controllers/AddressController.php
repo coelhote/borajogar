@@ -3,11 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
+use App\Services\AddressService;
 use Exception;
 use Illuminate\Http\Request;
 
 class AddressController extends Controller
 {
+    private $address;
+
+    public function __construct(AddressService $address)
+    {
+        $this->address = $address;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +34,7 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->address->update($request->all());
     }
 
     /**
@@ -49,7 +57,7 @@ class AddressController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return $this->address->update($request->all(), $id);
     }
 
     /**

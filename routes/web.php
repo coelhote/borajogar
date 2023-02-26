@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EstablishmentController;
 use App\Http\Controllers\UserController;
@@ -29,3 +30,4 @@ Route::delete('/user/{id}', [UserController::class, 'destroy']);
 Route::get('/user', [UserController::class, 'index']);
 
 Route::resource('establishment', EstablishmentController::class);
+Route::resource('address', AddressController::class);
