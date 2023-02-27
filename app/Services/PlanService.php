@@ -20,11 +20,9 @@ class PlanService
                 $isNew = true;
             }
 
-            $plan->user_id = $data['user_id'];
-            $plan->company_name = $data['company_name'];
-            $plan->trading_name = $data['trading_name'];
-            $plan->document = $data['document'];
-            $plan->plan = $data['plan'];
+            $plan->name = $data['name'];
+            $plan->description = $data['description'];
+            $plan->price = $data['price'];
             $plan->status = $isNew ? true : $data['status'];
             $plan->saveOrFail();
 
