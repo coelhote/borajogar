@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SoccerCourtImage;
-use Exception;
+use App\Models\SoccerCourtReservation;
 use Illuminate\Http\Request;
 
-class SoccerCourtImageController extends Controller
+class SoccerCourtReservationController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($soccerCourt)
     {
-        return SoccerCourtImage::where('status', 1)->get();
+        return SoccerCourtReservation::where('soccer_court_id', $soccerCourt)->get();
     }
 
     /**
@@ -32,12 +31,12 @@ class SoccerCourtImageController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\SoccerCourtReservation  $soccerCourtReservation
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        return SoccerCourtImage::find($id);
+        return SoccerCourtReservation::find($id);
     }
 
 
@@ -45,7 +44,7 @@ class SoccerCourtImageController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\SoccerCourtReservation  $soccerCourtReservation
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -56,20 +55,11 @@ class SoccerCourtImageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\SoccerCourtReservation  $soccerCourtReservation
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        try {
-            $SoccerCourtImage = SoccerCourtImage::find($id);
-
-            $SoccerCourtImage->status = false;
-            $SoccerCourtImage->save();
-
-            return response()->json(['message' => 'Soccer Court Image excluded'], 200);
-        } catch (Exception $e) {
-            return response()->json(['error' => 'Soccer Court Image exclusion failed. '. $e->getMessage()], 422);
-        }
+        //
     }
 }

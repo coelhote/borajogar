@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SoccerCourtEquipament;
+use Exception;
 use Illuminate\Http\Request;
 
 class SoccerCourtEquipamentController extends Controller
@@ -14,17 +15,7 @@ class SoccerCourtEquipamentController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return SoccerCourtEquipament::where('status', 1)->get();
     }
 
     /**
@@ -41,33 +32,23 @@ class SoccerCourtEquipamentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\SoccerCourtEquipament  $soccerCourtEquipament
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(SoccerCourtEquipament $soccerCourtEquipament)
+    public function show($id)
     {
-        //
+        return SoccerCourtEquipament::find($id);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\SoccerCourtEquipament  $soccerCourtEquipament
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(SoccerCourtEquipament $soccerCourtEquipament)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\SoccerCourtEquipament  $soccerCourtEquipament
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SoccerCourtEquipament $soccerCourtEquipament)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,11 +56,20 @@ class SoccerCourtEquipamentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\SoccerCourtEquipament  $soccerCourtEquipament
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SoccerCourtEquipament $soccerCourtEquipament)
+    public function destroy($id)
     {
-        //
+        try {
+            $SoccerCourtEquipament = SoccerCourtEquipament::find($id);
+
+            $SoccerCourtEquipament->status = false;
+            $SoccerCourtEquipament->save();
+
+            return response()->json(['message' => 'Soccer Court Equipament excluded'], 200);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'Soccer Court Equipament exclusion failed. '. $e->getMessage()], 422);
+        }
     }
 }

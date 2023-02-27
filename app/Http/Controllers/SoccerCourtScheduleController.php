@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SoccerCourtSchedule;
+use Exception;
 use Illuminate\Http\Request;
 
 class SoccerCourtScheduleController extends Controller
@@ -14,17 +15,7 @@ class SoccerCourtScheduleController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return SoccerCourtSchedule::where('status', 1)->get();
     }
 
     /**
@@ -41,33 +32,23 @@ class SoccerCourtScheduleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\SoccerCourtSchedule  $soccerCourtSchedule
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(SoccerCourtSchedule $soccerCourtSchedule)
+    public function show($id)
     {
-        //
+        return SoccerCourtSchedule::find($id);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\SoccerCourtSchedule  $soccerCourtSchedule
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(SoccerCourtSchedule $soccerCourtSchedule)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\SoccerCourtSchedule  $soccerCourtSchedule
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SoccerCourtSchedule $soccerCourtSchedule)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,11 +56,20 @@ class SoccerCourtScheduleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\SoccerCourtSchedule  $soccerCourtSchedule
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SoccerCourtSchedule $soccerCourtSchedule)
+    public function destroy($id)
     {
-        //
+        try {
+            $SoccerCourtSchedule = SoccerCourtSchedule::find($id);
+
+            $SoccerCourtSchedule->status = false;
+            $SoccerCourtSchedule->save();
+
+            return response()->json(['message' => 'Soccer Court Schedule excluded'], 200);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'Soccer Court Schedule exclusion failed. '. $e->getMessage()], 422);
+        }
     }
 }

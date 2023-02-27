@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SoccerCourtType;
+use Exception;
 use Illuminate\Http\Request;
 
 class SoccerCourtTypeController extends Controller
@@ -14,17 +15,7 @@ class SoccerCourtTypeController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return SoccerCourtType::where('status', 1)->get();
     }
 
     /**
@@ -41,33 +32,23 @@ class SoccerCourtTypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\SoccerCourtType  $soccerCourtType
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(SoccerCourtType $soccerCourtType)
+    public function show($id)
     {
-        //
+        return SoccerCourtType::find($id);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\SoccerCourtType  $soccerCourtType
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(SoccerCourtType $soccerCourtType)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\SoccerCourtType  $soccerCourtType
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SoccerCourtType $soccerCourtType)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,11 +56,20 @@ class SoccerCourtTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\SoccerCourtType  $soccerCourtType
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SoccerCourtType $soccerCourtType)
+    public function destroy($id)
     {
-        //
+        try {
+            $SoccerCourtType = SoccerCourtType::find($id);
+
+            $SoccerCourtType->status = false;
+            $SoccerCourtType->save();
+
+            return response()->json(['message' => 'Soccer Court Type excluded'], 200);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'Soccer Court Type exclusion failed. '. $e->getMessage()], 422);
+        }
     }
 }
