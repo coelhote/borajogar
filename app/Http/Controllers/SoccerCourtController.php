@@ -3,11 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\SoccerCourt;
+use App\Services\SoccerCourtService;
 use Exception;
 use Illuminate\Http\Request;
 
 class SoccerCourtController extends Controller
 {
+
+    private $soccerCourt;
+
+    public function __construct(SoccerCourtService $soccerCourt)
+    {
+        $this->soccerCourt = $soccerCourt;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +34,7 @@ class SoccerCourtController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->soccerCourt->update($request->all());
     }
 
     /**
@@ -50,7 +58,7 @@ class SoccerCourtController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return $this->soccerCourt->update($request->all(), $id);
     }
 
     /**
