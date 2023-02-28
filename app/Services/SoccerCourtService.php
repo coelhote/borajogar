@@ -25,6 +25,7 @@ class SoccerCourtService
             $SoccerCourt->name = $data['name'];
             $SoccerCourt->width = $data['width'];
             $SoccerCourt->length = $data['length'];
+            $SoccerCourt->price = $data['price'];
             $SoccerCourt->status = $isNew ? true : $data['status'];
             $SoccerCourt->saveOrFail();
 
