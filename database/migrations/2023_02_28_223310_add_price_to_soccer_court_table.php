@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('soccer_court', function (Blueprint $table) {
-            $table->double('price');
+        Schema::table('soccer_courts', function (Blueprint $table) {
+            $table->double('price')->after('length');
         });
     }
 
@@ -25,7 +25,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('soccer_court', function (Blueprint $table) {
+        Schema::table('soccer_courts', function (Blueprint $table) {
             $table->dropColumn('price');
         });
     }

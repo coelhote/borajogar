@@ -15,8 +15,7 @@ return new class extends Migration
     {
         Schema::table('soccer_court_equipaments', function (Blueprint $table) {
             $table->integer('soccer_court')->unsigned()->after('id');
-            $table->string('name')->after('soccer_court');
-            $table->string('icon')->after('name');
+            $table->integer('equipament')->unsigned()->after('soccer_court');
         });
     }
 
@@ -29,8 +28,7 @@ return new class extends Migration
     {
         Schema::table('soccer_court_equipaments', function (Blueprint $table) {
             $table->dropColumn('soccer_court');
-            $table->dropColumn('name');
-            $table->dropColumn('icon');
+            $table->dropColumn('equipament');
         });
     }
 };

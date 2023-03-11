@@ -2,21 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Establishment;
-use App\Services\EstablishmentService;
-use Exception;
+use App\Models\Equipaments;
 use Illuminate\Http\Request;
 
-class EstablishmentController extends Controller
+class EquipamentsController extends Controller
 {
-
-    private $establishment;
-
-    public function __construct(EstablishmentService $establishment)
-    {
-        $this->establishment = $establishment;
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +14,7 @@ class EstablishmentController extends Controller
      */
     public function index()
     {
-        return Establishment::where('status', 1)->get();
+        return Equipaments::get();
     }
 
     /**
@@ -35,49 +25,49 @@ class EstablishmentController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->establishment->update($request->input());
+        $equipaments = new Equipaments();
+        
+        foreach($request->all() as $data){
+            $equipaments->name = $data['name'];
+            $equipaments->icon = $data['icon'];
+            $equipaments->saveOrFail();
+        }
+
+        return Equipaments::get();
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Equipaments  $equipaments
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        return Establishment::with('courts')->find($id);
+        return Equipaments::find($id);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Equipaments  $equipaments
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        return $this->establishment->update($request->all(), $id);
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Equipaments  $equipaments
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        try {
-            $plan = Establishment::find($id);
-
-            $plan->status = false;
-            $plan->save();
-
-            return response()->json(['message' => 'Establishment excluded'], 200);
-        } catch (Exception $e) {
-            return response()->json(['error' => 'Establishment exclusion failed. '. $e->getMessage()], 422);
-        }
+        //
     }
 }

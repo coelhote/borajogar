@@ -3,11 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\SoccerCourtSchedule;
+use App\Services\SoccerCourtScheduleService;
 use Exception;
 use Illuminate\Http\Request;
 
 class SoccerCourtScheduleController extends Controller
 {
+    private $soccerCourtSchedule;
+
+    public function __construct(SoccerCourtScheduleService $soccerCourtSchedule)
+    {
+        $this->soccerCourtSchedule = $soccerCourtSchedule;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -24,9 +32,9 @@ class SoccerCourtScheduleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $soccer_court)
     {
-        //
+        return $this->soccerCourtSchedule->create($request->all(), $soccer_court);
     }
 
     /**
@@ -48,9 +56,9 @@ class SoccerCourtScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $soccer_court, $id)
     {
-        //
+        //return $this->soccerCourtSchedule->update($request->all(), $soccer_court, $id);
     }
 
     /**
@@ -62,10 +70,7 @@ class SoccerCourtScheduleController extends Controller
     public function destroy($id)
     {
         try {
-            $SoccerCourtSchedule = SoccerCourtSchedule::find($id);
-
-            $SoccerCourtSchedule->status = false;
-            $SoccerCourtSchedule->save();
+            SoccerCourtSchedule::where('id', $id)->delete();
 
             return response()->json(['message' => 'Soccer Court Schedule excluded'], 200);
         } catch (Exception $e) {

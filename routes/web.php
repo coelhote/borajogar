@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EquipamentsController;
 use App\Http\Controllers\EstablishmentController;
+use App\Http\Controllers\SoccerCourtController;
+use App\Http\Controllers\SoccerCourtScheduleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,3 +36,6 @@ Route::resource('establishment', EstablishmentController::class);
 Route::resource('address', AddressController::class);
 Route::resource('plan', AddressController::class);
 
+Route::post('/soccer_court/{soccer_court}/schedule', [SoccerCourtScheduleController::class, 'store']);
+Route::resource('soccer_court', SoccerCourtController::class);
+Route::resource('equipaments', EquipamentsController::class);

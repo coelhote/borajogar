@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -13,12 +14,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('soccer_court_reservations', function (Blueprint $table) {
+        Schema::create('equipaments', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id')->unsigned();
-            $table->integer('group_id')->nullable()->unsigned();
-            $table->integer('schedule_id')->unsigned()->comment('Dia da semana e horário reservado da tabela soccer_court_schedule');
-            $table->date('date');
+            $table->string('name');
+            $table->string('icon')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('soccer_court_reservations');
+        Schema::dropIfExists('equipaments');
     }
 };

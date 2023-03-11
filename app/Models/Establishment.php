@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Establishment extends Model
 {
@@ -20,4 +21,9 @@ class Establishment extends Model
     protected $hidden = [
         'user_id'
     ];
+
+    public function courts(): HasMany
+    {
+        return $this->hasMany(SoccerCourt::class, 'establishment_id', 'id');
+    }
 }

@@ -20,20 +20,6 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        DB::table('user_role')->insert(
-            array(
-                'name' => 'admin'
-            ),
-            array(
-                'name' => 'establishment'
-            ),
-            array(
-                'name' => 'team'
-            ),
-            array(
-                'name' => 'player'
-            ),
-        );
     }
 
     /**

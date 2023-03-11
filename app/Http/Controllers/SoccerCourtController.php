@@ -45,7 +45,7 @@ class SoccerCourtController extends Controller
      */
     public function show($id)
     {
-        return SoccerCourt::find($id);
+        return SoccerCourt::with(['type', 'equipaments', 'schedules'])->find($id);
     }
 
 
